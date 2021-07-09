@@ -1,0 +1,26 @@
+package com.te.JPAwithHibernateDemo.bin;
+
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+import lombok.Data;
+
+
+
+@Data
+@Entity
+public class Products implements Serializable {
+
+	
+	
+		
+	private int id;
+	private String name;
+	private String date;
+	
+	public Products()
+	{
+		
+	}
+}

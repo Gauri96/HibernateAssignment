@@ -1,0 +1,53 @@
+package com.te.HibernateDynamic;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import com.te.JPAwithHibernateDemo.bin.Products;
+
+public class ReadDataDynamicUsingJpql {
+	
+	public static void main(String[] args) {
+		
+		EntityManagerFactory factory=null;
+		EntityManager manager=null;
+		
+		try {
+			factory=Persistence.createEntityManagerFactory("ProductsData");
+			manager= factory.createEntityManager();
+			
+			
+			String readData="from Products where id = : id";
+			
+			Query query= manager.createQuery(readData);
+			
+			query.setParameter("id",Integer.parseInt(args[0]));
+			
+			Products products= (Products)query.getSingleResult();
+			
+			System.out.println("Productid :" + products.getId());
+			System.out.println("Product Name :"+ products.getName());
+			
+			
+			
+			
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}
+		finally
+	    {
+	    	if(factory!=null)
+	    	{
+	    		factory.close();
+	    	}
+	    	if(manager!=null)
+	    	{
+	    		manager.close();
+	    	}
+	    }
+	}
+
+}

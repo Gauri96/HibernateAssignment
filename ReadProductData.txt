@@ -1,0 +1,52 @@
+package com.te.JPAwithHibernateDemo1;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+import com.te.JPAwithHibernateDemo.bin.Products;
+
+public class ReadData {
+	
+	public static void main(String[] args) {
+		
+		EntityManagerFactory factory=null;
+	          EntityManager manager=null;
+		
+		
+		
+		try {
+			factory = Persistence.createEntityManagerFactory("productsData");
+			
+			manager=factory.createEntityManager();
+			
+			String readAll ="from Products";
+			Query query=manager.createQuery(readAll);
+			
+			List<Products>list=query.getResultList();
+			
+			for(Products products:list)
+			{
+				System.out.println(products);
+			}
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
+		finally
+	    {
+	    	if(factory!=null)
+	    	{
+	    		factory.close();
+	    	}
+	    	if(manager!=null)
+	    	{
+	    		manager.close();
+	    	}
+	    }
+	}
+
+}
